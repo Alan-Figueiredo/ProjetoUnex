@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Academia Haaa</title>
+  <style>
+    input{
+      width: 220px;
+    }
+  </style>
+</head>
+
+
+<body>
+  <h3>Preencha o formulário</h3>
+  <input id="name" placeholder="Digite seu nome completo..."><br>
+  <input id="time" type="number" placeholder="Digite o tempo de atividade(min)..."><br>
+  <input id="weight" type="number" placeholder="Digite seu peso(kg)..."><br>
+  <input id="height" type="number" placeholder="Digite sua altura(cm)..."><p>
+  
+  <form>
+    <select id="muscle" name="muscle" required="required"> 
+        <option value=""> Escolha o musculo </option>
+        <option value="Peito">Peito</option>
+        <option value="Triceps">Triceps</option>
+        <option value="Biceps">Biceps</option>
+        <option value="Costas">Costas</option>
+        <option value="Perna">Perna</option>
+        <option value="Panturrilha">Panturrilha</option>
+        <option value="Abdomen">Abdomen</option>
+    </select>
+    <button id="select">Selecionar</button>
+  </form>
+  <p><button id="submit" onclick="start()" type="submit">Enviar</button>
+  <script src="script.js"></script>
+</body>
+</html>
