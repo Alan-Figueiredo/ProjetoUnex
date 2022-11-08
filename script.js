@@ -1,6 +1,6 @@
 const data = [];
 let data_muscle = [];
-let cont = 0;
+let count = 0;
 
 document.getElementById("select").addEventListener("click", function(e) {
     e.preventDefault();
@@ -15,19 +15,15 @@ function start() {
     const weight = Number(document.getElementById("weight").value); //peso
     const height = Number(document.getElementById("height").value); // altura
 
-    let teste;
-    for (let i = 0; i < data_muscle.length;i++){
-        if (teste == undefined){
-            teste = `${data_muscle[i]} `
-        } else {
-            teste += data_muscle[i]
-        }
+    data[count] = [Name, time, weight, height, data_muscle];
+    
+    for (let i = 0; i < 1; i++){
+        answer.innerHTML += `<p>Nome: ${data[count][i]} <br>Tempo: ${data[count][i+1]} <br>Peso: ${data[count][i+2]} 
+        <br>Altura: ${data[count][i+3]} <br>Musculo: ${data[count][i+4]}`
         
-    }
-
-    data[cont] = {Nome: Name, "Tempo(min)": time, "Peso(kg)": weight, "Altura(cm)": height, "Musculo": teste};
+    };
     data_muscle = []
     teste = undefined
-    cont++;
+    count++;
     console.table(data);
 }
