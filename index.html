@@ -1,39 +1,130 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Academia Haaa</title>
-  <style>
-    input{
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        body {
+        background-color: #d9d9d9;
+        }
+        input{
       width: 220px;
     }
-  </style>
-</head>
+    </style>
+  </head>
+  <body>
+    <h1>Sua Ficha de treino pessoal</h1>
+    <h4>Digite seu nome:</h4>
+    <input type="text" id="nome" placeholder="Digite seu nome completo..." />
+    <br />
+    <h4>Digite sua idade</h4>
+    <input type="number" id="idade" placeholder="Digite sua idade..." />
+    <br />
+    <h4>Digite seu tempo no treino:</h4>
+    <input type="number" id="tempo" placeholder="Digite o tempo de atividade(min)..." />
+    <br />
+    <h4>Digite seu peso</h4>
+    <input type="number" id="peso" placeholder="Digite seu peso(kg)..." />
+    <br />
+    <label for="M"><h4>Masculino</h4></label>
+    <input type="radio" id="M" name="sexo" value="masculino" />
+    <br />
+    <label for="feminino"><h4>Feminino</h4></label>
+    <input type="radio" id="F" name="sexo" value="feminino" />
+    <br />
+    <h5 id="resp"></h5>
+    <h5 id="rest"></h5>
+    <form>
+      <select id="muscle" name="muscle" required="required"> 
+          <option value=""> Escolha o musculo </option>
+          <option value="Peito">Peito</option>
+          <option value="Triceps">Triceps</option>
+          <option value="Biceps">Biceps</option>
+          <option value="Costas">Costas</option>
+          <option value="Perna">Perna</option>
+          <option value="Panturrilha">Panturrilha</option>
+          <option value="Abdomen">Abdomen</option>
+      </select>
+      <button id="select">Selecionar</button>
+    </form>
+    <p><button id="submit" onclick="start()" type="submit">Enviar</button>
+    <script>
+        const data = [];
+        let data_muscle = [];
+        let count = 0;
+        let sexo;
 
+document.getElementById("select").addEventListener("click", function(e) {
+    e.preventDefault();
+    const muscle = document.getElementById("muscle").value;
+    data_muscle.push(muscle);
 
-<body>
-  <h3>Preencha o formulário</h3>
-  <input id="name" placeholder="Digite seu nome completo..."><br>
-  <input id="time" type="number" placeholder="Digite o tempo de atividade(min)..."><br>
-  <input id="weight" type="number" placeholder="Digite seu peso(kg)..."><br>
-  <input id="height" type="number" placeholder="Digite sua altura(cm)..."><p>
-  
-  <form>
-    <select id="muscle" name="muscle" required="required"> 
-        <option value=""> Escolha o musculo </option>
-        <option value="Peito">Peito</option>
-        <option value="Triceps">Triceps</option>
-        <option value="Biceps">Biceps</option>
-        <option value="Costas">Costas</option>
-        <option value="Perna">Perna</option>
-        <option value="Panturrilha">Panturrilha</option>
-        <option value="Abdomen">Abdomen</option>
-    </select>
-    <button id="select">Selecionar</button>
-  </form>
-  <p><button id="submit" onclick="start()" type="submit">Enviar</button>
-  <script src="script.js"></script>
-</body>
+})
+    
+function start() {
+    const nome = document.getElementById("nome").value; // nome
+    const time = Number(document.getElementById("tempo").value); // tempo do exercicio
+    const peso = Number(document.getElementById("peso").value); //peso
+    const idade = Number(document.getElementById("idade").value);
+    const visualizar = document.getElementById("rest");
+    const resp = document.getElementById("resp");
+
+    data[count] = [nome, time, peso, idade, data_muscle];
+    
+    // ------------
+    let inputs = document.querySelectorAll('input[name="sexo"]');
+    let findSelected = () => {
+        sexo = document.querySelector("input[name='sexo']:checked").value;
+    };
+    inputs.forEach((inputs) => {
+        inputs.addEventListener("change", findSelected);
+    });
+    
+    let cal = time * 5;
+    let caz = cal + 14.818 * peso + 486.6;
+    let caf = cal + 8.126 * peso + 845.6;
+    let cad = cal + 9.082 * peso + 658.5;
+    let hd = cal + 15.057 * peso + 692.2;
+    let hf = cal + 11.472 * peso + 873.1;
+    let hz = cal + 11.711 * peso + 587.7;
+    
+    visualizar.innerHTML = `<p>Ola ${nome} seu gasto calorico no treino é de ${cal}`;
+    
+    for (let i = 0; i < 1; i++){
+        visualizar.innerHTML += `<p>Nome: ${data[count][i]} <br>Tempo: ${data[count][i+1]} <br>Peso: ${data[count][i+2]} 
+        <br>Idade: ${data[count][i+3]} <br>Musculo: ${data[count][i+4]}`
+    };
+    
+    if (sexo == "feminino" && idade >= 18 && idade <= 30) {
+        resp.innerHTML = `Olá ${nome} vc tem um gasto de kcal em dia de treino de ${caz}`;
+    } else if (sexo == "feminino" && idade >= 31 && idade <= 60) {
+        resp.innerHTML ==
+        `Ola  ${nome}  vc tem um gasto de kcal em dia de treino de  ${caf}`;
+    } else if (sexo == "feminino" && idade <= 61) {
+        resp.innerHTML = `Olá  ${nome}  vc tem um gasto de kcal em dia de treino de  ${cad.toFixed(
+        1
+        )}`;
+    } else if ((sexo = "masculino" && idade >= 18 && idade <= 30)) {
+        resp.innerHTML = `Olá  ${nome}  vc tem um gasto de kcal em dia de treino de  ${hd.toFixed(
+        1
+        )}`;
+    } else if (sexo == "masculino" && idade >= 31 && idade <= 60) {
+        resp.innerHTML = `Olá  ${nome}  vc tem um gasto de kcal em dia de treino de  ${hf.toFixed(
+        1
+        )}`;
+    } else if (sexo == "masculino" && idade <= 61) {
+        resp.innerHTML = `Olá  ${nome}  vc tem um gasto de kcal em dia de treino de  ${caf.toFixed(
+        1
+        )}`;
+    }
+    
+    data_muscle = [];
+    teste = undefined;
+    count++;
+    console.log(data);
+}
+    </script>
+  </body>
 </html>
