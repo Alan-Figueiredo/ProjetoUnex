@@ -1,39 +1,139 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Academia Haaa</title>
-  <style>
-    input{
-      width: 220px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #view2 {
+            text-align: center;
+            
+        }
+        #view {
+            text-align: center;
+        }
+    </style>
 </head>
-
-
 <body>
-  <h3>Preencha o formulário</h3>
-  <input id="name" placeholder="Digite seu nome completo..."><br>
-  <input id="time" type="number" placeholder="Digite o tempo de atividade(min)..."><br>
-  <input id="weight" type="number" placeholder="Digite seu peso(kg)..."><br>
-  <input id="height" type="number" placeholder="Digite sua altura(cm)..."><p>
-  
-  <form>
-    <select id="muscle" name="muscle" required="required"> 
-        <option value=""> Escolha o musculo </option>
-        <option value="Peito">Peito</option>
-        <option value="Triceps">Triceps</option>
-        <option value="Biceps">Biceps</option>
-        <option value="Costas">Costas</option>
-        <option value="Perna">Perna</option>
-        <option value="Panturrilha">Panturrilha</option>
-        <option value="Abdomen">Abdomen</option>
+    <select id="musculo"></select>
+    <select id="exercicio">
+        <option value="" disabled selected>selecione o exercicio...</option>
     </select>
-    <button id="select">Selecionar</button>
-  </form>
-  <p><button id="submit" onclick="start()" type="submit">Enviar</button>
-  <script src="script.js"></script>
+    <button id="btn">Clique</button>
+    <div id="view"></div>
+    <div id="view2"></div>
+    <script>
+        const Select_muscle = document.getElementById("musculo");
+        const Select_exerc = document.getElementById("exercicio");
+        const list_exerc = {
+            "Peito": [
+                "Supino reto ",
+                "Supino inclinado",
+                "Flexão de braço ",
+                "Peito na paralela ",
+                "Voador no cabo inclinado",
+                "Crucifixo no voador "
+            ],
+            "Triceps": [
+                "Tríceps francês",
+                "Tríceps corda",
+                "Tríceps banco",
+                "Tríceps testa",
+                "Tríceps coice",
+                "Tríceps máquina"
+            ],
+            "Biceps": [
+                "Rosca bíceps com barra",
+                "Rosca bíceps com halteres",
+                "Rosca bíceps martelo",
+                "Rosca bíceps no cabo (usando corda)",
+                "Rosca bíceps no banco inclinado",
+                "Rosca bíceps no banco Scott"
+            ],
+            "Perna": [
+                "Agachamento livre",
+                "Búlgaro",
+                "Cadeira extensora",
+                "Cadeira abdutora",
+                "Mesa flexora",
+                "Leg press 45"
+            ],
+            "Costas": [
+                "Remada curvada",
+                "Remada cavalinho",
+                "Puxada frontal",
+                "Pulôver na polia",
+                "Remada unilateral",
+                "Barra fixa"
+            ],
+            "Panturrilha": [
+                "Panturrilha sentada",
+                "Panturrilha  em pé",
+                "Panturrilha em pé no smith",
+                "Elevação de panturrilha com uma perna só",
+                "Elevação de panturrilha no leg press"
+            ],
+            "Abdomem": [
+                "Abdominal supra",
+                "Abdominal  infra",
+                "Abdominal remador",
+                "Abdominal canivete",
+                "Abdominal hiperextensão de lombar",
+                "Abdominal bicicleta"
+            ],
+            "Ombro": [
+                "Elevação lateral",
+                "Elevação frontal",
+                "Desenvolvimento",
+                "Remada alta no Cross",
+                "Rotação externa",
+                "Rotação interna"
+            ]
+        }
+
+        function addOptions (Smuscle,options,) {
+            Smuscle.innerHTML = options.reduce((view,option) => {
+                return view + `<option value="${option}">${option}</option>`;
+            }, '<option disabled selected value>Escolha um musculo...</option>')
+        }
+        
+        const list_muscle = Object.keys(list_exerc)
+
+        addOptions(Select_muscle,list_muscle)
+
+        Select_muscle.addEventListener("change",function() {
+            addOptions(Select_exerc,list_exerc[this.value])
+        })
+        const list_trainer = []
+        const musculoDay = []
+        document.getElementById("btn").addEventListener("click",function() {
+            const view = document.getElementById("view");
+            const view2 = document.getElementById("view2");
+            const exercicio = document.getElementById("exercicio").value;
+            const musculo = document.getElementById("musculo").value;
+            list_trainer.push(exercicio)
+            musculoDay.push(musculo)
+
+            if (musculoDay.length > 1) {
+                for(let i=0; i< musculoDay.length;i++){
+                    if (musculoDay[musculoDay.length-1] == musculoDay[musculoDay.length-2]) {
+                        musculoDay.pop()
+                    }
+                }       
+            }
+            
+            
+            view.innerHTML = `Musculo:[${musculoDay}]`
+            for (let i = 0 ; i< list_trainer.length;i++){
+                let teste = list_trainer.join("<br>")
+                view2.innerHTML = `<br>Exercicio:[${teste}]`
+                
+            }
+
+            console.log(musculoDay)
+        })
+        
+    </script>
 </body>
 </html>
